@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 fetch('https://example.com/api/data')
   .then(response => response.json())
   .then(data => {
