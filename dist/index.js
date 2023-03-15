@@ -18,4 +18,5 @@ xhr.onreadystatechange = function () {
         console.log(`${key}: ${entry[key]}`);
       });
     });
-  
+  }
+}
