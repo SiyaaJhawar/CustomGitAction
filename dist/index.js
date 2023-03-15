@@ -2,7 +2,7 @@
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
  
 var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://dummy.restapiexample.com/api/v1/employees", true);
+xhr.open("GET", "https://api.publicapis.org/entries", true);
 xhr.send();
  
 xhr.onreadystatechange = function () {
