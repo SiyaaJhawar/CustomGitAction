@@ -1,14 +1,6 @@
-name: Test
-
-on:
-  pull_request:
-    types: [opened]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-   runs:
+name: 'File Check Action'
+description: 'An action that checks if the LICENSE and README.md files exists'
+runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'index.js'
+     
