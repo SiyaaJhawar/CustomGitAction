@@ -1,0 +1,26 @@
+{
+  "name": "customgitaction",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build src/action.js -o dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiyaaJhawar/CustomGitAction.git"
+  },
+  "author": "SiyaaJhawar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiyaaJhawar/CustomGitAction/issues"
+  },
+  "homepage": "https://github.com/SiyaaJhawar/CustomGitAction#readme",
+  "devDependencies": {
+    "@vercel/ncc": "^0.36.1"
+  },
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
+}
