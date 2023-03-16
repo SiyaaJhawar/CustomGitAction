@@ -18,7 +18,7 @@ xhr.onreadystatechange = function () {
 
 
     // Check if the activity is a blocker
-    if (key === "recreational") {
+    if (keys=== "recreational") {
       console.log("Blocker found. Submitting PR for review...");
 
       // Set up the request to create a new pull request
