@@ -18,24 +18,25 @@ xhr.onreadystatechange = function () {
       });
 
     
-      if (entry.blocker) {
+      if (entry.category === "Finance") {
         console.log("Blocker found. Submitting PR for review...");
 
      
         var prRequest = new XMLHttpRequest();
-        var url = "https://api.github.com/repos/SiyaaJhawar/CustomGitAction/pulls";
+        var url = "https://api.github.com/repos/SiyaaJhawar/CustomAction/pulls";
         prRequest.open("POST", url, true);
         prRequest.setRequestHeader("Content-Type", "application/json");
-        prRequest.setRequestHeader("Authorization", "$GITHUB_TOKEN");
+        prRequest.setRequestHeader("Authorization", "Bearer {access_token}");
 
+        // Create the pull request payload
         var payload = {
           title: "Fix for blocker in API entry",
           body: "This pull request fixes the blocker found in the API entry.",
           head: "fix-blocker",
-          base: "main"
+          base: "master"
         };
 
-      
+        // Send the pull request payload
         prRequest.send(JSON.stringify(payload));
 
         // Handle the response from the API
@@ -47,8 +48,7 @@ xhr.onreadystatechange = function () {
           }
         }
       } else {
-        console.log("No blocker found. Continuing workflow...");
-       
+        console.log("No blockers found. Continuing workflow...");
       }
     });
   }
