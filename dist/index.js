@@ -7,12 +7,12 @@ xhr.onreadystatechange = function () {
   if (this.readyState === 4 && this.status === 200) {
     var result = JSON.parse(this.responseText);
 
-    var activity = result; // Get the activity type from the result object
+    var activityType = result.type; // Get the activity type from the result object
 
-    console.log(`Activity: ${activity}`);
+    console.log(`Activity Type: ${activityType}`);
 
     // Check if the activity is a blocker
-    if (activity === "price") {
+    if (activityType === "recreational") {
       console.log("Blocker found. Submitting PR for review...");
 
       // Set up the request to create a new pull request
@@ -42,7 +42,13 @@ xhr.onreadystatechange = function () {
         }
       }
     } else {
-      console.log("No blockers found. Continuing workflow...");
+      var keys = Object.keys(result); // Get the keys of the result object
+      
+      console.log("Key-Value Pairs:");
+      keys.forEach(function (key) {
+        console.log(`${key}: ${result[key]}`);
+      });
     }
   }
 };
+
