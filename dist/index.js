@@ -23,7 +23,7 @@ xhr.onreadystatechange = function () {
 
      
         var prRequest = new XMLHttpRequest();
-        var url = "https://api.github.com/repos/SiyaaJhawar/demo/pulls";
+        var url = "https://api.github.com/repos/SiyaaJhawar/CustomGitAction/pulls";
         prRequest.open("POST", url, true);
         prRequest.setRequestHeader("Content-Type", "application/json");
         prRequest.setRequestHeader("Authorization", "Bearer {access_token}");
