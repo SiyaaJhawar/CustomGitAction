@@ -18,7 +18,7 @@ xhr.onreadystatechange = function () {
       });
 
     
-      if (entry.category === "Finance") {
+      if (entry.category === "HTTPS") {
         console.log("Blocker found. Submitting PR for review...");
 
      
