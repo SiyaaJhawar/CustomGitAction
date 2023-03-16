@@ -42,14 +42,5 @@ prRequest.onreadystatechange = function() {
     console.log("Error creating pull request.");
     console.log(this.responseText);
   }
-}else {
-      var keys = Object.keys(result); // Get the keys of the result object
-      
-      console.log("Key-Value Pairs:");
-      keys.forEach(function (key) {
-        console.log(`${key}: ${result[key]}`);
-      });
-    }
-  }
-};
+}
 
