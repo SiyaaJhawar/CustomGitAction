@@ -21,7 +21,7 @@ xhr.onreadystatechange = function () {
       prRequest.open("POST", url, true);
       prRequest.setRequestHeader("Content-Type", "application/json");
       prRequest.setRequestHeader("Authorization", "Bearer <$secrets.GITHUB_TOKEN>");
-      console.log("$secrets.GITHUB_TOKEN");
+      console.log("secrets.GITHUB_TOKEN");
 
       // Create the pull request payload
       var payload = {
