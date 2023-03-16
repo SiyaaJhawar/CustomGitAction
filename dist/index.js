@@ -1,5 +1,5 @@
 
-const { Octokit } = require("octokit");
+const { Octokit } = require("octokit/rest");
 
 const octokit = new Octokit({
   auth: "$secrets.GITHUB_TOKEN",
