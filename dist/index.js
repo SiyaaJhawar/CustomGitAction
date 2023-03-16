@@ -50,6 +50,6 @@ xhr.onreadystatechange = function () {
     } else {
       console.log("No blockers found. Continuing workflow...");
     }
-  }
+  
 };
 
