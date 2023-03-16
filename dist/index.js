@@ -7,45 +7,50 @@ xhr.onreadystatechange = function () {
   if (this.readyState === 4 && this.status === 200) {
     var result = JSON.parse(this.responseText);
 
-    var keys = Object.keys(result); // Get the keys of the result object
-    
-    console.log("Key-Value Pairs:");
-    keys.forEach(function (key) {
-      console.log(`${key}: ${result[key]}`);
-    });
+    var activityType = result.type; // Get the activity type from the result object
 
-    console.log("Blocker found. Submitting PR for review...");
+    console.log(`Activity Type: ${activityType}`);
 
-    // Set up the request to create a new pull request
-    var prRequest = new XMLHttpRequest();
-    var url = "https://api.github.com/repos/SiyaaJhawar/CustomGitAction/pulls";
-    prRequest.open("POST", url, true);
-    prRequest.setRequestHeader("Content-Type", "application/json");
-    prRequest.setRequestHeader("Authorization", "$secrets.GITHUB_TOKEN");
+    // Check if the activity is a blocker
+    if (activityType != "recreational") {
+      console.log("Blocker found. Submitting PR for review...");
 
-    // Create the pull request payload
-    var payload = {
-      title: "Fix for blocker in Bored API",
-      body: "This pull request fixes the blocker found in the Bored API.",
-      head: "SiyaaJhawar-patch-1",
-      base: "main"
-    };
+      // Set up the request to create a new pull request
+      var prRequest = new XMLHttpRequest();
+      var url = "https://api.github.com/repos/{owner}/{repo}/pulls";
+      prRequest.open("POST", url, true);
+      prRequest.setRequestHeader("Content-Type", "application/json");
+      prRequest.setRequestHeader("Authorization", "Bearer {access_token}");
 
-    // Send the pull request payload
-    prRequest.send(JSON.stringify(payload));
+      // Create the pull request payload
+      var payload = {
+        title: "Fix for blocker in Bored API",
+        body: "This pull request fixes the blocker found in the Bored API.",
+        head: "fix-blocker",
+        base: "master"
+      };
 
-    // Handle the response from the API
-    prRequest.onreadystatechange = function() {
-      if (this.readyState === 4) {
-        if (this.status === 201) {
+     
+      prRequest.send(JSON.stringify(payload));
+
+      // Handle the response from the API
+      prRequest.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 201) {
           console.log("Pull request created successfully!");
-        } else {
-          console.log("Error creating pull request. Status code: " + this.status);
-          console.log("Response: " + this.responseText);
+        } else if (this.readyState === 4 && this.status !== 201) {
+          console.log("Error creating pull request.");
         }
       }
+    } else {
+      var keys = Object.keys(result); // Get the keys of the result object
+      
+      console.log("Key-Value Pairs:");
+      keys.forEach(function (key) {
+        console.log(`${key}: ${result[key]}`);
+      });
     }
   }
 };
+
 
 
