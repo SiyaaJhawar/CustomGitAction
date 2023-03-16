@@ -27,7 +27,7 @@ xhr.onreadystatechange = function () {
         title: "Fix for blocker in Bored API",
         body: "This pull request fixes the blocker found in the Bored API.",
         head: "fix-blocker",
-        base: "master"
+        base: "main"
       };
 
       // Send the pull request payload
