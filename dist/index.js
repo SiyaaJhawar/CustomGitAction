@@ -1,34 +1,49 @@
+const { Octokit } = require("@octokit/rest");
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
- 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://dummy.restapiexample.com/api/v1/employees", true);
-xhr.send();
- 
-xhr.onreadystatechange = function () {
-  console.log("readyState = " + this.readyState + ", status = " + this.status);
-  if (this.readyState === 4 && this.status === 200) {
-    var result = JSON.parse(this.responseText);
-    console.log(result);
+const octokit = new Octokit({
+  auth: "YOUR_PERSONAL_ACCESS_TOKEN",
+});
 
-    for (var key in result) {
-      if (result.hasOwnProperty(key)) {
-        var val = result[key];
-        console.log(result.hasOwnProperty(key));
-        if (Array.isArray(val)) {
-          val.forEach(function(item) {
-            for (var k in item) {
-              if (item.hasOwnProperty(k)) {
-            
-                console.log(k + ": " + item[k]);
-              } 
-              }
-            });
-          }
-        else {
-          console.log(key + ": " + val);
-        }
-      }
+const getRequest = async () => {
+  try {
+    const response = await octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
+      owner: "SiyaaJhawar",
+      repo: "CustomGitAction",
+      path: "activity.json",
+    });
+    const result = JSON.parse(response.data.content);
+    const activityType = result.type;
+
+    console.log(`Activity Type: ${activityType}`);
+
+    if (activityType !== "recreational") {
+      console.log("Blocker found. Submitting PR for review...");
+
+      const pullRequest = await octokit.pulls.create({
+        owner: "SiyaaJhawar",
+        repo: "CustomGitAction",
+        title: "Fix for blocker in Bored API",
+        body: "This pull request fixes the blocker found in the Bored API.",
+        head: "SiyaaJhawar-patch-1",
+        base: "main",
+      });
+
+      console.log("Pull request created successfully!");
+    } else {
+      const keys = Object.keys(result);
+      
+      console.log("Key-Value Pairs:");
+      keys.forEach(function (key) {
+        console.log(`${key}: ${result[key]}`);
+      });
     }
+  } catch (error) {
+    console.error(error);
   }
 };
+
+getRequest();
+
+  
+
+  
