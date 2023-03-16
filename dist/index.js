@@ -1,48 +1,56 @@
 
-const { Octokit } = require("@octokit/rest");
+const { Octokit } = require("octokit");
 
 const octokit = new Octokit({
-  auth: "YOUR_PERSONAL_ACCESS_TOKEN",
+  auth: "$secrets.GITHUB_TOKEN",
 });
 
-const getRequest = async () => {
-  try {
-    const response = await octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
-      owner: "SiyaaJhawar",
-      repo: "CustomGitAction",
-      path: "activity.json",
-    });
-    const result = JSON.parse(response.data.content);
-    const activityType = result.type;
+
+octokit.rest.activity
+  .random()
+  .then((response) => {
+    const result = response.data;
+
+    const activityType = result.type; 
 
     console.log(`Activity Type: ${activityType}`);
 
-    if (activityType !== "recreational") {
+    // Check if the activity is a blocker
+    if (activityType != "recreational") {
       console.log("Blocker found. Submitting PR for review...");
 
-      const pullRequest = await octokit.pulls.create({
+     
+      const payload = {
         owner: "SiyaaJhawar",
         repo: "CustomGitAction",
         title: "Fix for blocker in Bored API",
         body: "This pull request fixes the blocker found in the Bored API.",
         head: "SiyaaJhawar-patch-1",
         base: "main",
-      });
+      };
 
-      console.log("Pull request created successfully!");
+      // Send the pull request payload
+      octokit.rest.pulls
+        .create(payload)
+        .then((response) => {
+          console.log("Pull request created successfully!");
+        })
+        .catch((error) => {
+          console.log("Error creating pull request.", error);
+        });
     } else {
-      const keys = Object.keys(result);
-    console.log("Key-Value Pairs:");
+      const keys = Object.keys(result); // Get the keys of the result object
+
+      console.log("Key-Value Pairs:");
       keys.forEach(function (key) {
         console.log(`${key}: ${result[key]}`);
       });
     }
-  } catch (error) {
-    console.error(error);
-  }
-};
+  })
+  .catch((error) => {
+    console.log("Error getting random activity.", error);
+  });
 
-getRequest();
 
   
 
