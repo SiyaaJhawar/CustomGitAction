@@ -7,23 +7,17 @@ xhr.onreadystatechange = function () {
   if (this.readyState === 4 && this.status === 200) {
     var result = JSON.parse(this.responseText);
 
-    var keys = Object.keys(result); // Get the keys of the result object
-    
-    console.log("Key-Value Pairs:");
-    keys.forEach(function (key) {
-      console.log(`${key}: ${result[key]}`);
-    });
-  }
-};
+    var activityType = result.type; // Get the activity type from the result object
 
+    console.log(`Activity Type: ${activityType}`);
 
     // Check if the activity is a blocker
-    if (activity=== "recreational") {
+    if (activityType === "recreational") {
       console.log("Blocker found. Submitting PR for review...");
 
       // Set up the request to create a new pull request
       var prRequest = new XMLHttpRequest();
-      var url = "https://api.github.com/repos/{owner}/{repo}/pulls";
+      var url = "https://api.github.com/repos/SiyaaJhawar/CustomGitAction/pulls";
       prRequest.open("POST", url, true);
       prRequest.setRequestHeader("Content-Type", "application/json");
       prRequest.setRequestHeader("Authorization", "Bearer {access_token}");
@@ -50,6 +44,5 @@ xhr.onreadystatechange = function () {
     } else {
       console.log("No blockers found. Continuing workflow...");
     }
-  
-
-
+  }
+};
