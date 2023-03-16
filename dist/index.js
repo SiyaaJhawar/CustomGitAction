@@ -22,7 +22,7 @@ xhr.onreadystatechange = function () {
       var url = "https://api.github.com/repos/SiyaaJhawar/CustomGitAction/pulls";
       prRequest.open("GET", url, true);
      prRequest.setRequestHeader("Content-Type", "application/json");
-      prRequest.setRequestHeader("Authorization", "token":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);
+      prRequest.setRequestHeader("Authorization", "token":(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));
      // console.log("secrets.GITHUB_TOKEN");
 
       // Create the pull request payload
