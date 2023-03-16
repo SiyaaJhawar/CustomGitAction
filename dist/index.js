@@ -17,10 +17,10 @@ xhr.onreadystatechange = function () {
 
       // Set up the request to create a new pull request
       var prRequest = new XMLHttpRequest();
-      var url = "https://api.github.com/repos/{owner}/{repo}/pulls";
+      var url = "https://api.github.com/repos/SiyaaJhawar/CustomGitAction/pulls";
       prRequest.open("POST", url, true);
       prRequest.setRequestHeader("Content-Type", "application/json");
-      prRequest.setRequestHeader("Authorization", "Bearer {access_token}");
+      prRequest.setRequestHeader("Authorization", "Bearer {$secrets.GITHUB_TOKEN}");
 
       // Create the pull request payload
       var payload = {
@@ -39,6 +39,7 @@ xhr.onreadystatechange = function () {
           console.log("Pull request created successfully!");
         } else if (this.readyState === 4 && this.status !== 201) {
           console.log("Error creating pull request.");
+          console.log("Response: " + this.responseText);
         }
       }
     } else {
