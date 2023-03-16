@@ -3,12 +3,12 @@ name: Test
 on:
   pull_request:
     types: [opened]
-
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-   runs:
-  using: 'node12'
-  main: 'dist/index.js'
+      - uses: ./
+    
+      
