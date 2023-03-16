@@ -7,12 +7,18 @@ xhr.onreadystatechange = function () {
   if (this.readyState === 4 && this.status === 200) {
     var result = JSON.parse(this.responseText);
 
-    var activityType = result.type; // Get the activity type from the result object
+    var keys = Object.keys(result); // Get the keys of the result object
+    
+    console.log("Key-Value Pairs:");
+    keys.forEach(function (key) {
+      console.log(`${key}: ${result[key]}`);
+    });
+  }
+};
 
-    console.log(`Activity Type: ${activityType}`);
 
     // Check if the activity is a blocker
-    if (activityType === "recreational") {
+    if (key === "recreational") {
       console.log("Blocker found. Submitting PR for review...");
 
       // Set up the request to create a new pull request
