@@ -12,7 +12,7 @@ xhr.onreadystatechange = function () {
     console.log(`Activity Type: ${activityType}`);
 
     // Check if the activity is a blocker
-    if (activityType === "key") {
+    if (activityType === "price") {
       console.log("Blocker found. Submitting PR for review...");
 
       // Set up the request to create a new pull request
