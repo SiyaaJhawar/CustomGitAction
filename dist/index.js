@@ -22,18 +22,19 @@ const octokit = new Octokit({
     if (activityType !== "recreational") {
       console.log("Blocker found. Submitting PR for review...");
 
-      const payload = {
+    
+      const prResponse = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+        owner: 'SiyaaJhawar',
+        repo: 'CustomGitAction',
+        ...payload
+      });
+        const payload = {
         title: "Fix for blocker in Bored API",
         body: "This pull request fixes the blocker found in the Bored API.",
         head: "SiyaaJhawar-patch-1",
         base: "main"
       };
 
-      const prResponse = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
-        owner: 'SiyaaJhawar',
-        repo: 'CustomGitAction',
-        ...payload
-      });
 
       console.log("Pull request created successfully!");
     } else {
