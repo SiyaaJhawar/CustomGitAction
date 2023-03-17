@@ -4,12 +4,9 @@ author: 'SiyaaJhawar'
 
 inputs:
   GITHUB_TOKEN:
-    description: 'GitHub token'
+    description: ' GitHub token is required for xmlhttprequest for api '
     required: true
-  TENOR_TOKEN:
-    description: 'Tenor API token'
-    required: true
-
+ 
 runs:
   using: 'node12'
   main: 'dist/index.js'
