@@ -26,14 +26,12 @@ const octokit = new Octokit({
       const prResponse = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
         owner: 'SiyaaJhawar',
         repo: 'CustomGitAction',
-        ...payload
-      });
-        const payload = {
-        title: "Fix for blocker in Bored API",
+         title: "Fix for blocker in Bored API",
         body: "This pull request fixes the blocker found in the Bored API.",
         head: "SiyaaJhawar-patch-1",
         base: "main"
-      };
+      });
+      
 
 
       console.log("Pull request created successfully!");
