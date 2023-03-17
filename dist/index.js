@@ -46,7 +46,4 @@ const octokit = new Octokit({
     console.error("Error occurred: ", error.message);
   }
 })();
-<<<<<<< HEAD
 
-=======
->>>>>>> c5e265546c6b92f40bc1c144919a28bbead399ef
