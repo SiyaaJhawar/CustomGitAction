@@ -4,7 +4,7 @@ const { createPullRequest } = require("octokit-plugin-create-pull-request");
 //const Octokit = Octokit.plugin(createPullRequest);
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN
+  auth: TOKEN
 });
 
 (async () => {
