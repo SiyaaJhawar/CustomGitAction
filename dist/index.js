@@ -2,17 +2,11 @@ const { Octokit } = require("octokit");
 // import { createPullRequest } from "octokit-plugin-create-pull-request";
 const { createPullRequest } = require("octokit-plugin-create-pull-request");
 //const Octokit = Octokit.plugin(createPullRequest);
-
-const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN
-});
+const octokit = new Octokit({ auth: process.env.GITHUB_AUTH });
 
 (async () => {
   try {
-    const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
-      owner: 'SiyaaJhawar',
-      repo: 'CustomGitAction'
-    });
+    
 
     const result = await octokit.request('GET /activity', {
       baseUrl: 'https://www.boredapi.com/api',
