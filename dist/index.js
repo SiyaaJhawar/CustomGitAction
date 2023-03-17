@@ -1,61 +1,48 @@
+const { Octokit } = require("octokit");
 
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN
+});
 
-  var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://www.boredapi.com/api/activity", true);
-xhr.send();
+(async () => {
+  const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+    owner: 'SiyaaJhawar',
+    repo: 'CustomGitAction'
+  });
 
-xhr.onreadystatechange = function () {
-  if (this.readyState === 4 && this.status === 200) {
-    var result = JSON.parse(this.responseText);
+  const result = await octokit.request('GET /activity', {
+    baseUrl: 'https://www.boredapi.com/api',
+  });
 
-    var activityType = result.type; // Get the activity type from the result object
+  const activityType = result.data.type;
 
-    console.log(`Activity Type: ${activityType}`);
+  console.log(`Activity Type: ${activityType}`);
 
-    // Check if the activity is a blocker
-    if (activityType != "recreational") {
-      console.log("Blocker found. Submitting PR for review...");
+  if (activityType != "recreational") {
+    console.log("Blocker found. Submitting PR for review...");
 
-      // Set up the request to create a new pull request
-      var prRequest = new XMLHttpRequest();
-      var url = "https://api.github.com/repos/SiyaaJhawar/CustomGitAction/pulls";
-      prRequest.open("GET", url, true);
-     prRequest.setRequestHeader("Content-Type", "application/json");
-      prRequest.setRequestHeader("Authorization", "Bearer<$secrets.GITHUB_TOKEN>");
-     // console.log("secrets.GITHUB_TOKEN");
+    const payload = {
+      title: "Fix for blocker in Bored API",
+      body: "This pull request fixes the blocker found in the Bored API.",
+      head: "SiyaaJhawar-patch-1",
+      base: "main"
+    };
 
-      // Create the pull request payload
-      var payload = {
-        title: "Fix for blocker in Bored API",
-        body: "This pull request fixes the blocker found in the Bored API.",
-        head: "SiyaaJhawar-patch-1",
-        base: "main"
-      };
+    const prResponse = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+      owner: 'SiyaaJhawar',
+      repo: 'CustomGitAction',
+      ...payload
+    });
 
-     
-      prRequest.send(JSON.stringify(payload));
-
-    
-      prRequest.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 201) {
-          console.log("Pull request created successfully!");
-        } else if (this.readyState === 4 && this.status !== 201) {
-          console.log("Error creating pull request.");
-          console.log("Response: " + this.responseText);
-        }
-      }
-    } else {
-      var keys = Object.keys(result);
-
-      
-      console.log("Key-Value Pairs:");
-      keys.forEach(function (key) {
-        console.log(`${key}: ${result[key]}`);
-      });
+    console.log("Pull request created successfully!");
+  } else {
+    console.log("Key-Value Pairs:");
+    for (const [key, value] of Object.entries(result.data)) {
+      console.log(`${key}: ${value}`);
     }
   }
-}
+})();
+
   
 
 
