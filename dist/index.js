@@ -1,4 +1,5 @@
 const { Octokit } = require("octokit");
+ import { createPullRequest } from octokit-plugin-create-pull-request";
 const { createPullRequest } = require("octokit-plugin-create-pull-request");
 
 const octokit = new Octokit({
