@@ -46,3 +46,4 @@ if (activityType !== "recreational") {
   }
 }
 
+}
