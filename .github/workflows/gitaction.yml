@@ -2,7 +2,7 @@ name: Test
 
 on:
   pull_request:
-    types: [opened]
+    branches: main
   workflow_dispatch:
 jobs:
   test:
@@ -11,6 +11,13 @@ jobs:
       - uses: actions/checkout@v3
       
       - uses: ./
-     
+   
+      - run: |
+           curl -L \
+             -X POST \
+           -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer <YOUR-TOKEN>"\
+ 
+           https://api.github.com/repos/SiyaaJhawar/demo
     
       
