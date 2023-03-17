@@ -9,10 +9,7 @@ const octokit = new Octokit({
 
 (async () => {
   try {
-    const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
-      owner: 'SiyaaJhawar',
-      repo: 'CustomGitAction'
-    });
+    
 
     const result = await octokit.request('GET /activity', {
       baseUrl: 'https://www.boredapi.com/api',
