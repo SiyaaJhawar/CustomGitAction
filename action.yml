@@ -1,12 +1,18 @@
-name: 'Thank You Action'
-description: 'Say "Thank You" to new pull requests'
-author: 'SiyaaJhawar'
-
+name: 'CustomGitAction'
+description: 'Adds pull request file changes as a comment to a newly opened PR'
 inputs:
-  GITHUB_TOKEN:
-    description: ' GitHub token is required for xmlhttprequest for api '
+  owner:
+    description: 'The owner of the repository'
     required: true
- 
+  repo:
+    description: 'The name of the repository'
+    required: true
+  pr_number:
+    description: 'The number of the pull request'
+    required: true
+  token:
+    description: 'The token to use to access the GitHub API'
+    required: true
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: 'node16'
+  main: 'index.js'
