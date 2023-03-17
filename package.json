@@ -21,9 +21,11 @@
     "@vercel/ncc": "^0.36.1"
   },
   "dependencies": {
+    "@octokit/core": "^4.2.0",
     "@octokit/rest": "^19.0.7",
     "node-fetch": "^3.3.1",
     "octokit": "^2.0.14",
+    "octokit-plugin-create-pull-request": "^4.1.1",
     "xmlhttprequest": "^1.8.0"
   }
 }
