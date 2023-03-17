@@ -1,45 +1,52 @@
 const { Octokit } = require("octokit");
+const { createPullRequest } = require("octokit-plugin-create-pull-request");
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN
 });
 
 (async () => {
-  const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
-    owner: 'SiyaaJhawar',
-    repo: 'CustomGitAction'
-  });
-
-  const result = await octokit.request('GET /activity', {
-    baseUrl: 'https://www.boredapi.com/api',
-  });
-
-  const activityType = result.data.type;
-
-  console.log(`Activity Type: ${activityType}`);
-
-  if (activityType != "recreational") {
-    console.log("Blocker found. Submitting PR for review...");
-
-    const payload = {
-      title: "Fix for blocker in Bored API",
-      body: "This pull request fixes the blocker found in the Bored API.",
-      head: "SiyaaJhawar-patch-1",
-      base: "main"
-    };
-
-    const prResponse = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+  try {
+    const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
       owner: 'SiyaaJhawar',
-      repo: 'CustomGitAction',
-      ...payload
+      repo: 'CustomGitAction'
     });
 
-    console.log("Pull request created successfully!");
-  } else {
-    console.log("Key-Value Pairs:");
-    for (const [key, value] of Object.entries(result.data)) {
-      console.log(`${key}: ${value}`);
+    const result = await octokit.request('GET /activity', {
+      baseUrl: 'https://www.boredapi.com/api',
+    });
+
+    const activityType = result.data.type;
+
+    console.log(`Activity Type: ${activityType}`);
+
+    if (activityType !== "recreational") {
+      console.log("Blocker found. Submitting PR for review...");
+
+    
+      const prResponse = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+        owner: 'SiyaaJhawar',
+        repo: 'CustomGitAction',
+         title: "Fix for blocker in Bored API",
+        body: "This pull request fixes the blocker found in the Bored API.",
+        head: "SiyaaJhawar-patch-1",
+        base: "main"
+      });
+      
+
+
+      console.log("Pull request created successfully!");
+    } else {
+      console.log("Key-Value Pairs:");
+      for (const [key, value] of Object.entries(result.data)) {
+        console.log(`${key}: ${value}`);
+      }
     }
+  } catch (error) {
+    console.error("Error occurred: ", error.message);
   }
 })();
+<<<<<<< HEAD
 
+=======
+>>>>>>> c5e265546c6b92f40bc1c144919a28bbead399ef
